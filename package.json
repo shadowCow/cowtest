@@ -1,0 +1,24 @@
+{
+  "name": "cowtest",
+  "version": "0.1.0",
+  "description": "A lightweight library for creating DSL tests in TypeScript",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "ts-node ./src/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadowCow/cowtest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shadowCow/cowtest/issues"
+  },
+  "homepage": "https://github.com/shadowCow/cowtest#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
