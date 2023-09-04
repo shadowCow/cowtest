@@ -3,32 +3,25 @@ import {
   createPassResult,
   TestReporter,
 } from "./reporter/Reporter";
-import { UseCase } from "./use_cases/UseCase";
 
-export type TestRunner<Action, Validation> = {
-  run(useCases: Array<UseCase<Action, Validation>>): void;
+export type TestRunner = {
+  run(testCases: Array<TestCase>): void;
+};
+export type TestCase = {
+  description: string;
+  test: () => void;
 };
 
-export function createTestRunner<Action, Validation>(
-  reporter: TestReporter,
-  userActionExecutor: (action: Action) => void,
-  stateValidationExecutor: (validation: Validation) => void
-): TestRunner<Action, Validation> {
+export function createTestRunner(reporter: TestReporter): TestRunner {
   return {
-    run(useCases: Array<UseCase<Action, Validation>>) {
-      useCases.forEach((useCase) => {
+    run(testCases: Array<TestCase>) {
+      testCases.forEach((testCase) => {
         try {
-          useCase.Given();
+          testCase.test();
 
-          userActionExecutor(useCase.When);
-
-          useCase.Then.forEach((validation) =>
-            stateValidationExecutor(validation)
-          );
-
-          reporter.report(createPassResult(useCase.description));
+          reporter.report(createPassResult(testCase.description));
         } catch (ex) {
-          reporter.report(createFailResult(useCase.description, ex));
+          reporter.report(createFailResult(testCase.description, ex));
         }
       });
     },
