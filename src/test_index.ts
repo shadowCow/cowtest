@@ -18,4 +18,16 @@ testRunner.run([
       throw new Error("it fails");
     },
   },
+  {
+    description: "pass async",
+    test: async () => {
+      await Promise.resolve();
+    },
+  },
+  {
+    description: "fail async",
+    test: async () => {
+      await Promise.reject("it fails async");
+    },
+  },
 ]);
